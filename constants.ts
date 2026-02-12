@@ -55,7 +55,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     phone: '+39 333 1234567',
     motherTongue: 'Arabo',
     needsPermesso: true,
-    role: 'Operaio di linea',
+    role: 'Mulettista',
     campaignId: 'demo-1',
     status: CandidateStatus.BLOCKED,
     whatsappActive: true,
@@ -65,15 +65,18 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: false,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '09:12', message: 'Verifica permesso di soggiorno fallita: QR Code contraffatto' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '09:12', message: 'Verifica permesso di soggiorno fallita: OCR rileva incongruenza font (sospetto contraffatto)' }],
     whatsappHistory: [
       { sender: 'agent', text: 'Benvenuto Ahmed. Carica qui il tuo Documento ID e Permesso di soggiorno.', timestamp: '14:00' },
       { sender: 'candidate', text: 'Eccoli in allegato.', timestamp: '14:30' },
-      { sender: 'agent', text: 'Il documento inviato (Permesso di soggiorno) non risulta valido. Non possiamo procedere.', timestamp: '14:45' }
+      { sender: 'agent', text: 'Il documento inviato (Permesso di soggiorno) presenta anomalie strutturali. Verifica in corso.', timestamp: '14:45' }
     ],
     documents: [
-      { id: 'doc5', type: 'Documento di identità', fileName: 'passport.pdf', status: DocStatus.RECEIVED },
-      { id: 'doc6', type: 'Permesso di soggiorno', fileName: 'permesso_irregolare.jpg', status: DocStatus.INVALID, reason: 'QR Code non leggibile o contraffatto' }
+      { id: 'doc5', type: 'Documento di identità', fileName: 'passport_ahmed.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc6', type: 'Permesso di soggiorno (se necessario)', fileName: 'permesso_sospetto.jpg', status: DocStatus.INVALID, reason: 'Incongruenza dati OCR vs Formato Ministeriale', suspicious: true },
+      { id: 'doc7', type: 'Patentino muletto', fileName: 'patente_m.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc8', type: 'Certificato medico', fileName: '', status: DocStatus.MISSING }
     ],
     cvUrl: 'hassan_cv.pdf'
   },
@@ -93,12 +96,13 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: false,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '10:45', message: 'Richiesto nuovo documento ID per scadenza rilevata' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '10:45', message: 'Richiesto nuovo documento ID per scadenza rilevata dall\'AI' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'La tua carta d’identità risulta scaduta. Puoi inviarne una aggiornata?', timestamp: '13:45' }
+      { sender: 'agent', text: 'La tua carta d’identità risulta scaduta il mese scorso. Puoi inviarne una aggiornata?', timestamp: '13:45' }
     ],
     documents: [
-      { id: 'doc2', type: 'Carta d’identità', fileName: 'id_scaduto.jpg', status: DocStatus.EXPIRED, reason: 'Scaduto il 15/02/2023' },
+      { id: 'doc2', type: 'Documento di identità', fileName: 'id_vecchio.jpg', status: DocStatus.EXPIRED, reason: 'Scaduto il 15/02/2023' },
       { id: 'doc3', type: 'Certificato medico', fileName: '', status: DocStatus.MISSING }
     ],
     cvUrl: 'cv_marco.pdf'
@@ -119,22 +123,108 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: false,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '08:00', message: 'Tutti i documenti validati' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '08:00', message: 'Tutti i documenti essenziali validati automaticamente' }],
     whatsappHistory: [
       { sender: 'agent', text: 'La documentazione è completa. A breve riceverai la proposta di assunzione.', timestamp: '11:00' }
     ],
     documents: [
-      { id: 'doc8', type: 'Documento di identità', fileName: 'id_luca.png', status: DocStatus.RECEIVED },
-      { id: 'doc9', type: 'Certificato medico', fileName: 'visita.pdf', status: DocStatus.RECEIVED }
+      { id: 'doc8', type: 'Documento di identità', fileName: 'id_ferrari.png', status: DocStatus.RECEIVED },
+      { id: 'doc9', type: 'Certificato medico', fileName: 'visita_medica_ok.pdf', status: DocStatus.RECEIVED }
     ],
     cvUrl: 'cv_luca.pdf'
   },
   {
     id: 'c4',
     name: 'Elena Popescu',
-    phone: '+39 334 5566778',
+    phone: '+40 721 123456',
     motherTongue: 'Rumeno',
+    needsPermesso: true,
+    role: 'Operaio di linea',
+    campaignId: 'demo-1',
+    status: CandidateStatus.VERIFYING,
+    whatsappActive: true,
+    whatsappStatus: 'ricevuti',
+    offerSent: false,
+    medicalVisitScheduled: false,
+    contractSigned: false,
+    dpiDelivered: false,
+    safetyCoursesCompleted: false,
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '11:20', message: 'Documenti ricevuti, analisi AI in corso (estrazione anagrafica)' }],
+    whatsappHistory: [
+      { sender: 'candidate', text: 'Ho mandato tutto, va bene?', timestamp: '11:15' },
+      { sender: 'agent', text: 'Ricevuto! Sto analizzando i file, ti aggiorno tra un momento.', timestamp: '11:16' }
+    ],
+    documents: [
+      { id: 'doc11', type: 'Documento di identità', fileName: 'pasaport_ro.jpg', status: DocStatus.RECEIVED },
+      { id: 'doc12', type: 'Certificato medico', fileName: 'certificat.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc12b', type: 'Permesso di soggiorno (se necessario)', fileName: 'permesso_elena.jpg', status: DocStatus.RECEIVED }
+    ],
+    cvUrl: 'cv_elena.pdf'
+  },
+  {
+    id: 'c5',
+    name: 'Amir Ibrahim',
+    phone: '+39 345 9988776',
+    motherTongue: 'Arabo',
+    needsPermesso: true,
+    role: 'Operaio di campo',
+    campaignId: 'demo-1',
+    status: CandidateStatus.AWAITING_RESPONSE,
+    whatsappActive: true,
+    whatsappStatus: 'richiesti',
+    offerSent: false,
+    medicalVisitScheduled: false,
+    contractSigned: false,
+    dpiDelivered: false,
+    safetyCoursesCompleted: false,
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '09:00', message: 'Messaggio di benvenuto e richiesta documenti inviato' }],
+    whatsappHistory: [
+      { sender: 'agent', text: 'Ciao Amir, sono l\'assistente AvvIA. Per favore carica il tuo documento e il certificato medico.', timestamp: '09:00' }
+    ],
+    documents: [
+      { id: 'doc13', type: 'Documento di identità', fileName: '', status: DocStatus.MISSING },
+      { id: 'doc14', type: 'Certificato medico', fileName: '', status: DocStatus.MISSING },
+      { id: 'doc14b', type: 'Permesso di soggiorno (se necessario)', fileName: '', status: DocStatus.MISSING }
+    ],
+    cvUrl: 'amir_cv.pdf'
+  },
+  {
+    id: 'c6',
+    name: 'Giovanni Neri',
+    phone: '+39 320 1122334',
+    motherTongue: 'Italiano',
     needsPermesso: false,
+    role: 'Mulettista',
+    campaignId: 'demo-1',
+    status: CandidateStatus.OFFER_SENT,
+    whatsappActive: true,
+    whatsappStatus: 'ricevuti',
+    offerSent: true,
+    medicalVisitScheduled: false,
+    contractSigned: false,
+    dpiDelivered: false,
+    safetyCoursesCompleted: false,
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '15:30', message: 'Offerta economica inviata correttamente' }],
+    whatsappHistory: [
+      { sender: 'agent', text: 'Ottime notizie! La documentazione è perfetta. Ecco la tua proposta di contratto. Clicca per firmare.', timestamp: '15:30' }
+    ],
+    documents: [
+      { id: 'doc15', type: 'Documento di identità', fileName: 'id_neri.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc16', type: 'Certificato medico', fileName: 'medico.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc17', type: 'Patentino muletto', fileName: 'patente_muletto.pdf', status: DocStatus.RECEIVED }
+    ],
+    cvUrl: 'neri_cv.pdf'
+  },
+  {
+    id: 'c7',
+    name: 'Yana Ivanova',
+    phone: '+39 351 4455667',
+    motherTongue: 'Russo',
+    needsPermesso: true,
     role: 'Operaio di linea',
     campaignId: 'demo-1',
     status: CandidateStatus.CONTRACT_SIGNED,
@@ -145,73 +235,26 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: true,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '15:20', message: 'Contratto firmato digitalmente via WhatsApp' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '10:00', message: 'Firma digitale acquisita (DocuSign integration)' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'Ecco il contratto. Firma cliccando sul link.', timestamp: '14:00' },
-      { sender: 'candidate', text: 'Fatto!', timestamp: '15:20' }
+      { sender: 'candidate', text: 'Ho firmato tutto dal link.', timestamp: '09:55' },
+      { sender: 'agent', text: 'Perfetto Yana! Contratto ricevuto. Ora dobbiamo fissare la visita medica.', timestamp: '10:00' }
     ],
     documents: [
-      { id: 'd10', type: 'Documento ID', fileName: 'elena_id.pdf', status: DocStatus.RECEIVED },
-      { id: 'd11', type: 'Certificato medico', fileName: 'medico_elena.pdf', status: DocStatus.RECEIVED }
-    ]
-  },
-  {
-    id: 'c5',
-    name: 'Driss El Amrani',
-    phone: '+39 331 9988776',
-    motherTongue: 'Arabo',
-    needsPermesso: true,
-    role: 'Operaio di campo',
-    campaignId: 'demo-1',
-    status: CandidateStatus.VERIFYING,
-    whatsappActive: true,
-    whatsappStatus: 'ricevuti',
-    offerSent: false,
-    medicalVisitScheduled: false,
-    contractSigned: false,
-    dpiDelivered: false,
-    safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '10:00', message: 'Rilevato Permesso di Soggiorno con anomalie grafiche (Sospetto)' }],
-    whatsappHistory: [
-      { sender: 'candidate', text: 'Ecco il mio permesso di soggiorno.', timestamp: '09:30' }
+      { id: 'doc18', type: 'Documento di identità', fileName: 'yana_id.jpg', status: DocStatus.RECEIVED },
+      { id: 'doc19', type: 'Certificato medico', fileName: 'visita_precedente.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc19b', type: 'Permesso di soggiorno (se necessario)', fileName: 'permesso_yana.pdf', status: DocStatus.RECEIVED }
     ],
-    documents: [
-      { id: 'd12', type: 'Documento ID', fileName: 'driss_id.pdf', status: DocStatus.RECEIVED },
-      { id: 'd13', type: 'Permesso di soggiorno', fileName: 'permesso_sospetto.jpg', status: DocStatus.INVALID, reason: 'Anomalie grafiche rilevate dai sistemi di sicurezza', suspicious: true }
-    ]
+    cvUrl: 'yana_cv.pdf'
   },
   {
-    id: 'c6',
-    name: 'Maria Ionescu',
-    phone: '+39 339 4433221',
-    motherTongue: 'Rumeno',
-    needsPermesso: false,
-    role: 'Addetto magazzino',
-    campaignId: 'demo-1',
-    status: CandidateStatus.OFFER_SENT,
-    whatsappActive: true,
-    whatsappStatus: 'attivo',
-    offerSent: true,
-    medicalVisitScheduled: false,
-    contractSigned: false,
-    dpiDelivered: false,
-    safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '09:00', message: 'Offerta economica inviata. In attesa di accettazione.' }],
-    whatsappHistory: [
-      { sender: 'agent', text: 'Ti abbiamo inviato l\'offerta. Facci sapere se accetti.', timestamp: '09:00' }
-    ],
-    documents: [
-      { id: 'd14', type: 'Documento ID', fileName: 'maria_id.pdf', status: DocStatus.RECEIVED },
-      { id: 'd15', type: 'Certificato medico', fileName: 'maria_med.pdf', status: DocStatus.RECEIVED }
-    ]
-  },
-  {
-    id: 'c7',
-    name: 'Giovanni Gialli',
-    phone: '+39 340 5556667',
+    id: 'c8',
+    name: 'Pietro Esposito',
+    phone: '+39 339 5556677',
     motherTongue: 'Italiano',
     needsPermesso: false,
-    role: 'Mulettista',
+    role: 'Operaio di campo',
     campaignId: 'demo-1',
     status: CandidateStatus.MEDICAL_SCHEDULED,
     whatsappActive: true,
@@ -221,22 +264,24 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: true,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '11:00', message: 'Visita medica fissata per il 25/10 ore 09:00' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '12:00', message: 'Visita medica fissata per il 25/10 presso sede Bitonto' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'La tua visita medica è fissata per il 25/10 ore 09:00 presso la sede.', timestamp: '11:00' }
+      { sender: 'agent', text: 'La tua visita medica è confermata per domani alle 09:00.', timestamp: '12:00' }
     ],
     documents: [
-      { id: 'd16', type: 'Patentino muletto', fileName: 'patente.pdf', status: DocStatus.RECEIVED },
-      { id: 'd17', type: 'Documento ID', fileName: 'giovanni_id.pdf', status: DocStatus.RECEIVED }
-    ]
+      { id: 'doc20', type: 'Documento di identità', fileName: 'id_pietro.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc21', type: 'Certificato medico', fileName: 'cert_anamnesi.pdf', status: DocStatus.RECEIVED }
+    ],
+    cvUrl: 'esposito_cv.pdf'
   },
   {
-    id: 'c8',
-    name: 'Paolo Verdi',
-    phone: '+39 345 1112223',
+    id: 'c9',
+    name: 'Maria Conti',
+    phone: '+39 340 7778899',
     motherTongue: 'Italiano',
     needsPermesso: false,
-    role: 'Operaio di campo',
+    role: 'Tecnico di laboratorio',
     campaignId: 'demo-1',
     status: CandidateStatus.READY_TO_START,
     whatsappActive: true,
@@ -246,39 +291,17 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: true,
     dpiDelivered: true,
     safetyCoursesCompleted: true,
-    auditLog: [{ timestamp: '17:00', message: 'Consegna DPI effettuata e corsi sicurezza completati. Candidato pronto.' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '17:00', message: 'Checklist pre-inizio completata: DPI consegnati e corso sicurezza OK' }],
     whatsappHistory: [
-      { sender: 'agent', text: `Sei pronto per iniziare! Ti aspettiamo lunedì alle 07:00.`, timestamp: '17:30' }
+      { sender: 'agent', text: 'Tutto pronto Maria! Ti aspettiamo lunedì alle 08:30 in laboratorio.', timestamp: '17:05' }
     ],
     documents: [
-      { id: 'd18', type: 'Documento ID', fileName: 'paolo_id.pdf', status: DocStatus.RECEIVED },
-      { id: 'd19', type: 'Certificato medico', fileName: 'paolo_med.pdf', status: DocStatus.RECEIVED }
-    ]
-  },
-  {
-    id: 'c9',
-    name: 'Ivan Petrov',
-    phone: '+39 320 4445556',
-    motherTongue: 'Russo',
-    needsPermesso: true,
-    role: 'Operaio di linea',
-    campaignId: 'demo-1',
-    status: CandidateStatus.AWAITING_RESPONSE,
-    whatsappActive: true,
-    whatsappStatus: 'richiesti',
-    offerSent: false,
-    medicalVisitScheduled: false,
-    contractSigned: false,
-    dpiDelivered: false,
-    safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: 'ieri', message: 'Nessuna risposta da WhatsApp per 48h. Stato di allerta attivato.' }],
-    whatsappHistory: [
-      { sender: 'agent', text: 'Ivan, ci sei? Abbiamo bisogno dei tuoi documenti per procedere.', timestamp: '48h fa' }
+      { id: 'doc22', type: 'Documento di identità', fileName: 'id_maria.png', status: DocStatus.RECEIVED },
+      { id: 'doc23', type: 'Certificato medico', fileName: 'idoneita.pdf', status: DocStatus.RECEIVED },
+      { id: 'doc24', type: 'Diploma tecnico / Laurea', fileName: 'laurea_agraria.pdf', status: DocStatus.RECEIVED }
     ],
-    documents: [
-      { id: 'd20', type: 'Documento ID', fileName: '', status: DocStatus.MISSING },
-      { id: 'd21', type: 'Permesso di soggiorno', fileName: '', status: DocStatus.MISSING }
-    ]
+    cvUrl: 'maria_cv.pdf'
   },
   {
     id: 'c10',
@@ -296,20 +319,21 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: false,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '10:00', message: 'Importato da ATS (Workday)' }],
+    needsPriorityReview: true,
+    auditLog: [{ timestamp: '10:00', message: 'Importato da ATS (Workday). Richiede approvazione manuale per avvio WhatsApp.' }],
     whatsappHistory: [],
     documents: [],
     cvUrl: 'cv_sara.pdf'
   },
   {
     id: 'c11',
-    name: 'Roberto Bianchi',
-    phone: '+39 342 9998887',
-    motherTongue: 'Italiano',
-    needsPermesso: false,
-    role: 'Operaio di linea',
+    name: 'Olek Kuznetsov',
+    phone: '+39 328 1112223',
+    motherTongue: 'Russo',
+    needsPermesso: true,
+    role: 'Operaio di campo',
     campaignId: 'demo-1',
-    status: CandidateStatus.VERIFYING,
+    status: CandidateStatus.PENDING_DOCS,
     whatsappActive: true,
     whatsappStatus: 'ricevuti',
     offerSent: false,
@@ -317,39 +341,17 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     contractSigned: false,
     dpiDelivered: false,
     safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: '12:00', message: 'Documenti ricevuti, analisi automatica in corso.' }],
+    needsPriorityReview: false,
+    auditLog: [{ timestamp: '14:20', message: 'Certificato medico mancante nel set caricato' }],
     whatsappHistory: [
-      { sender: 'candidate', text: 'Ecco tutto.', timestamp: '11:55' }
+      { sender: 'candidate', text: 'Ho caricato il permesso, manca altro?', timestamp: '14:15' },
+      { sender: 'agent', text: 'Sì, Olek. Manca il certificato medico per procedere.', timestamp: '14:20' }
     ],
     documents: [
-      { id: 'd22', type: 'Documento ID', fileName: 'rob_id.pdf', status: DocStatus.RECEIVED },
-      { id: 'd23', type: 'Certificato medico', fileName: 'rob_med.pdf', status: DocStatus.RECEIVED }
-    ]
-  },
-  {
-    id: 'c12',
-    name: 'Fatima Zahra',
-    phone: '+39 334 1122330',
-    motherTongue: 'Arabo',
-    needsPermesso: true,
-    role: 'Operaio di campo',
-    campaignId: 'demo-1',
-    status: CandidateStatus.PENDING_DOCS,
-    whatsappActive: true,
-    whatsappStatus: 'richiesti',
-    offerSent: false,
-    medicalVisitScheduled: false,
-    contractSigned: false,
-    dpiDelivered: false,
-    safetyCoursesCompleted: false,
-    auditLog: [{ timestamp: 'ieri', message: 'Manca certificato medico.' }],
-    whatsappHistory: [
-      { sender: 'agent', text: 'Fatima, invia il certificato medico per favore.', timestamp: 'ieri' }
+      { id: 'doc25', type: 'Documento di identità', fileName: 'olek_id.jpg', status: DocStatus.RECEIVED },
+      { id: 'doc26', type: 'Certificato medico', fileName: '', status: DocStatus.MISSING },
+      { id: 'doc27', type: 'Permesso di soggiorno (se necessario)', fileName: 'permesso_valido.pdf', status: DocStatus.RECEIVED }
     ],
-    documents: [
-      { id: 'd24', type: 'Documento ID', fileName: 'fatima_id.pdf', status: DocStatus.RECEIVED },
-      { id: 'd25', type: 'Certificato medico', fileName: '', status: DocStatus.MISSING },
-      { id: 'd26', type: 'Permesso di soggiorno', fileName: 'fatima_ps.pdf', status: DocStatus.RECEIVED }
-    ]
+    cvUrl: 'olek_cv.pdf'
   }
 ];

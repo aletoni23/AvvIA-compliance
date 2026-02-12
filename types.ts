@@ -56,6 +56,7 @@ export interface Candidate {
   auditLog: { timestamp: string; message: string }[];
   whatsappHistory: ChatMessage[];
   cvUrl?: string;
+  needsPriorityReview?: boolean; // Flag per gestire lo smistamento in CRM
 }
 
 export interface CampaignRole {

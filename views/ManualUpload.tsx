@@ -44,6 +44,7 @@ export const ManualUpload: React.FC<ManualUploadProps> = ({ campaign, onImport, 
       contractSigned: false,
       dpiDelivered: false,
       safetyCoursesCompleted: false,
+      needsPriorityReview: true, // Fondamentale per farli apparire in revisione
       auditLog: [{ timestamp: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), message: 'Estratto da CV manuale' }],
       whatsappHistory: [],
       cvUrl: 'cv_manual_upload.pdf'

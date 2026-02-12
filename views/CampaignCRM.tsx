@@ -42,9 +42,10 @@ export const CampaignCRM: React.FC<CampaignCRMProps> = ({
   const [isReadySectionExpanded, setIsReadySectionExpanded] = useState(false);
   const [lastActionMsg, setLastActionMsg] = useState<string | null>(null);
   
-  const toReview = useMemo(() => candidates.filter(c => c.status === CandidateStatus.TO_REVIEW), [candidates]);
+  // Utilizziamo il flag needsPriorityReview per separare i candidati
+  const toReview = useMemo(() => candidates.filter(c => c.needsPriorityReview === true), [candidates]);
+  const activePipeline = useMemo(() => candidates.filter(c => c.needsPriorityReview !== true), [candidates]);
   const readyForContract = useMemo(() => candidates.filter(c => c.status === CandidateStatus.READY_FOR_OFFER), [candidates]);
-  const activePipeline = useMemo(() => candidates.filter(c => c.status !== CandidateStatus.TO_REVIEW), [candidates]);
 
   const roleSummaries = useMemo(() => {
     return campaign.roles.map(role => {
@@ -122,7 +123,7 @@ export const CampaignCRM: React.FC<CampaignCRMProps> = ({
   };
 
   const handleQuickAction = (candidate: Candidate, action: string) => {
-    let updated = { ...candidate };
+    let updated = { ...candidate, needsPriorityReview: false }; // Rimuoviamo sempre dalla coda prioritaria
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     
     if (action === 'approva') {

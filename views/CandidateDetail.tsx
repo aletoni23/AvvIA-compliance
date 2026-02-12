@@ -271,7 +271,11 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, cam
             <h3 className="text-xl font-bold text-slate-900 tracking-tight mb-6 uppercase">Documentazione Conformità</h3>
             <div className="space-y-3">
               {displayDocs.map((doc) => {
-                const isMandatory = OBBLIGATORIO_DOCS.includes(doc.type);
+                // Il permesso è essenziale SOLO se il candidato NON è italiano
+                const isMandatory = doc.type === 'Permesso di soggiorno (se necessario)' 
+                    ? candidate.motherTongue !== 'Italiano' 
+                    : OBBLIGATORIO_DOCS.includes(doc.type);
+                    
                 const isMissing = doc.status === DocStatus.MISSING;
                 return (
                   <div key={doc.id} className={`flex items-start gap-5 p-4 bg-white border rounded-2xl transition-all group ${isMissing ? 'border-slate-100 bg-slate-50/30' : 'border-slate-200 hover:border-emerald-950 shadow-sm'}`}>

@@ -104,6 +104,7 @@ export const ATSConnect: React.FC<ATSConnectProps> = ({ campaign, onImport, onBa
         contractSigned: false,
         dpiDelivered: false,
         safetyCoursesCompleted: false,
+        needsPriorityReview: true, // Fondamentale per farli apparire in revisione
         auditLog: [{ timestamp: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), message: `Importato da ATS (${selectedATS})` }],
         whatsappHistory: [],
         cvUrl: 'cv_ats_import.pdf'
