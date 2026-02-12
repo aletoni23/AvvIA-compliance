@@ -206,7 +206,7 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, cam
                     <div className="w-3 h-3 rounded-full bg-emerald-600 absolute top-0 left-0 animate-ping opacity-30"></div>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-base font-bold text-slate-900 tracking-tight leading-none">WhatsApp Bridge</p>
+                    <p className="text-base font-bold text-slate-900 tracking-tight leading-none">WhatsApp</p>
                     <p className="text-[9px] text-emerald-700 font-bold uppercase tracking-widest leading-none">{candidate.phone}</p>
                   </div>
                 </div>

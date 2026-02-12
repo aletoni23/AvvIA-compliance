@@ -118,7 +118,7 @@ export const CampaignCRM: React.FC<CampaignCRMProps> = ({
 
   const handleSendAllContracts = () => {
     readyForContract.forEach(c => handleSendContract(c));
-    setLastActionMsg(`Inviati ${readyForContract.length} contratti in massa.`);
+    setLastActionMsg(`Inviati ${readyForContract.length} contratti a tutti.`);
   };
 
   const handleQuickAction = (candidate: Candidate, action: string) => {
@@ -387,7 +387,7 @@ export const CampaignCRM: React.FC<CampaignCRMProps> = ({
                       onClick={handleSendAllContracts}
                       className="h-9 px-5 bg-emerald-950 text-white rounded-lg text-[9px] font-bold uppercase tracking-widest hover:bg-black transition-all flex items-center gap-2.5 shadow-md"
                     >
-                      <Send className="w-3.5 h-3.5" /> Invia massivo
+                      <Send className="w-3.5 h-3.5" /> Invia tutti
                     </button>
                   </div>
                   <div className="space-y-2.5 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
