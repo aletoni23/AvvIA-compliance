@@ -16,10 +16,10 @@
     "lucide-react": "^0.468.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.5",
-    "jspdf": "^2.5.2"
+    "jspdf": "^2.5.2",
+    "@types/node": "^22.13.1"
   },
   "devDependencies": {
-    "@types/node": "^22.13.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "vite": "^6.0.0",
