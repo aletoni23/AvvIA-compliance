@@ -169,6 +169,7 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, cam
   };
 
   const suspiciousDoc = candidate.documents.find(d => d.suspicious);
+  const hasValidatedMedicalCert = candidate.documents.some(d => d.type === 'Certificato medico' && d.status === DocStatus.RECEIVED);
 
   return (
     <div className="pb-24 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-6xl mx-auto">
@@ -344,7 +345,7 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, cam
               <div className="pt-4 border-t border-slate-100 mt-2 flex flex-col space-y-3">
                 <ActionButton label="Invia Contratto" active={candidate.status === CandidateStatus.READY_FOR_OFFER} done={candidate.offerSent} onClick={() => handleAction('offer')} />
                 
-                {(candidate.status === CandidateStatus.CONTRACT_SIGNED || candidate.status === CandidateStatus.MEDICAL_SCHEDULED) && (
+                {(candidate.status === CandidateStatus.CONTRACT_SIGNED || candidate.status === CandidateStatus.MEDICAL_SCHEDULED) && !hasValidatedMedicalCert && (
                   <button 
                     onClick={() => setShowMedicalModal(true)}
                     className={`w-full h-11 rounded-xl text-[9px] font-bold transition-all border flex items-center justify-between px-5 uppercase tracking-widest ${
