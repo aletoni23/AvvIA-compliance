@@ -68,9 +68,16 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '09:12', message: 'Verifica permesso di soggiorno fallita: OCR rileva incongruenza font (sospetto contraffatto)' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'Benvenuto Ahmed. Carica qui il tuo Documento ID e Permesso di soggiorno.', timestamp: '14:00' },
-      { sender: 'candidate', text: 'Eccoli in allegato.', timestamp: '14:30' },
-      { sender: 'agent', text: 'Il documento inviato (Permesso di soggiorno) presenta anomalie strutturali. Verifica in corso.', timestamp: '14:45' }
+      { sender: 'agent', text: 'Benvenuto Ahmed. Sono l\'assistente virtuale di AvvIA. Per la tua candidatura come Mulettista, ho bisogno che carichi qui il tuo Documento d\'Identità e il Permesso di Soggiorno.', timestamp: '14:00' },
+      { sender: 'candidate', text: 'Ciao, li mando subito. Datemi un attimo che faccio le foto.', timestamp: '14:05' },
+      { sender: 'candidate', text: '[Allegato: passport_ahmed.pdf]', timestamp: '14:10' },
+      { sender: 'candidate', text: '[Allegato: permesso_ahmed_foto.jpg]', timestamp: '14:11' },
+      { sender: 'agent', text: 'Grazie Ahmed. Sto analizzando i documenti tramite il nostro sistema AI. Attendi un istante.', timestamp: '14:12' },
+      { sender: 'agent', text: 'Ahmed, il sistema ha rilevato un\'anomalia nel Permesso di Soggiorno. Per favore, carica una foto più nitida, dove si vedano bene tutti i bordi del documento.', timestamp: '14:15' },
+      { sender: 'candidate', text: 'Ok, ne faccio un\'altra. Eccola.', timestamp: '14:20' },
+      { sender: 'candidate', text: '[Allegato: permesso_ahmed_foto_v2.jpg]', timestamp: '14:21' },
+      { sender: 'agent', text: 'Ricevuto. Sto verificando nuovamente.', timestamp: '14:22' },
+      { sender: 'agent', text: 'Il documento caricato presenta ancora anomalie strutturali rilevate dal motore OCR di sicurezza. La pratica viene sospesa per verifica manuale.', timestamp: '14:45' }
     ],
     documents: [
       { id: 'doc5', type: 'Documento di identità', fileName: 'passport_ahmed.pdf', status: DocStatus.RECEIVED },
@@ -99,7 +106,12 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '10:45', message: 'Richiesto nuovo documento ID per scadenza rilevata dall\'AI' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'La tua carta d’identità risulta scaduta il mese scorso. Puoi inviarne una aggiornata?', timestamp: '13:45' }
+      { sender: 'agent', text: 'Ciao Marco! Ti do il benvenuto nel processo di selezione AvvIA per la raccolta olive. Carica qui la tua Carta d\'Identità.', timestamp: '13:00' },
+      { sender: 'candidate', text: 'Ciao, ecco la foto.', timestamp: '13:05' },
+      { sender: 'candidate', text: '[Allegato: id_fronte.jpg]', timestamp: '13:06' },
+      { sender: 'agent', text: 'Marco, la tua carta d’identità risulta scaduta il mese scorso secondo i nostri record. Puoi inviarne una aggiornata?', timestamp: '13:45' },
+      { sender: 'candidate', text: 'Ah scusami, non me ne ero accorto. Appena torno a casa la cerco e te la mando.', timestamp: '13:50' },
+      { sender: 'agent', text: 'Perfetto, resto in attesa. Senza documento valido non possiamo procedere con l\'offerta di lavoro.', timestamp: '13:55' }
     ],
     documents: [
       { id: 'doc2', type: 'Documento di identità', fileName: 'id_vecchio.jpg', status: DocStatus.EXPIRED, reason: 'Scaduto il 15/02/2023' },
@@ -126,7 +138,14 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '08:00', message: 'Tutti i documenti essenziali validati automaticamente' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'La documentazione è completa. A breve riceverai la proposta di assunzione.', timestamp: '11:00' }
+      { sender: 'agent', text: 'Buongiorno Luca. Sono l\'assistente AvvIA. Iniziamo il processo per il ruolo di Operaio di campo. Per favore, inviami il tuo Documento ID e il certificato medico di idoneità se lo hai già.', timestamp: '09:00' },
+      { sender: 'candidate', text: 'Ciao. Ecco l\'ID.', timestamp: '09:10' },
+      { sender: 'candidate', text: '[Allegato: id_luca.png]', timestamp: '09:11' },
+      { sender: 'agent', text: 'ID validato correttamente. Hai anche il certificato medico?', timestamp: '09:15' },
+      { sender: 'candidate', text: 'Sì, un attimo che trovo il PDF che mi hanno mandato via email.', timestamp: '09:20' },
+      { sender: 'candidate', text: '[Allegato: visita_ok.pdf]', timestamp: '10:30' },
+      { sender: 'agent', text: 'Analisi certificato medico completata: IDONEO. Ottimo lavoro Luca.', timestamp: '10:35' },
+      { sender: 'agent', text: 'La documentazione è completa. A breve riceverai la proposta di assunzione direttamente qui su WhatsApp.', timestamp: '11:00' }
     ],
     documents: [
       { id: 'doc8', type: 'Documento di identità', fileName: 'id_ferrari.png', status: DocStatus.RECEIVED },
@@ -153,8 +172,13 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '11:20', message: 'Documenti ricevuti, analisi AI in corso (estrazione anagrafica)' }],
     whatsappHistory: [
+      { sender: 'agent', text: 'Buna ziua Elena! Sunt agentul tau AvvIA. Te rog trimite copia pasaportului si a permisului de sedere.', timestamp: '10:00' },
+      { sender: 'candidate', text: 'Buna, trimit acum.', timestamp: '10:05' },
+      { sender: 'candidate', text: '[Allegato: pasaport_ro.jpg]', timestamp: '11:00' },
+      { sender: 'candidate', text: '[Allegato: certificat.pdf]', timestamp: '11:10' },
+      { sender: 'candidate', text: '[Allegato: permesso_elena.jpg]', timestamp: '11:12' },
       { sender: 'candidate', text: 'Ho mandato tutto, va bene?', timestamp: '11:15' },
-      { sender: 'agent', text: 'Ricevuto! Sto analizzando i file, ti aggiorno tra un momento.', timestamp: '11:16' }
+      { sender: 'agent', text: 'Ricevuto Elena! Sto analizzando i file tramite il nostro sistema di visione artificiale, ti aggiorno tra un momento.', timestamp: '11:16' }
     ],
     documents: [
       { id: 'doc11', type: 'Documento di identità', fileName: 'pasaport_ro.jpg', status: DocStatus.RECEIVED },
@@ -182,7 +206,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '09:00', message: 'Messaggio di benvenuto e richiesta documenti inviato' }],
     whatsappHistory: [
-      { sender: 'agent', text: 'Ciao Amir, sono l\'assistente AvvIA. Per favore carica il tuo documento e il certificato medico.', timestamp: '09:00' }
+      { sender: 'agent', text: 'Ciao Amir, sono l\'assistente AvvIA. Per favore carica il tuo documento, il certificato medico e il permesso di soggiorno.', timestamp: '09:00' }
     ],
     documents: [
       { id: 'doc13', type: 'Documento di identità', fileName: '', status: DocStatus.MISSING },
@@ -210,6 +234,12 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '15:30', message: 'Offerta economica inviata correttamente' }],
     whatsappHistory: [
+      { sender: 'agent', text: 'Ciao Giovanni! Carica i documenti per il ruolo di Mulettista.', timestamp: '14:00' },
+      { sender: 'candidate', text: 'Eccoli. ID, Certificato e Patentino.', timestamp: '14:30' },
+      { sender: 'candidate', text: '[Allegato: neri_id.pdf]', timestamp: '14:31' },
+      { sender: 'candidate', text: '[Allegato: med.pdf]', timestamp: '14:32' },
+      { sender: 'candidate', text: '[Allegato: patente_m.pdf]', timestamp: '14:33' },
+      { sender: 'agent', text: 'Documenti ricevuti e validati. Compliance 100%.', timestamp: '15:00' },
       { sender: 'agent', text: 'Ottime notizie! La documentazione è perfetta. Ecco la tua proposta di contratto. Clicca per firmare.', timestamp: '15:30' }
     ],
     documents: [
@@ -238,6 +268,10 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '10:00', message: 'Firma digitale acquisita (DocuSign integration)' }],
     whatsappHistory: [
+      { sender: 'agent', text: 'Zdravstvuyte Yana. Carica documenti.', timestamp: '08:00' },
+      { sender: 'candidate', text: 'Trimit.', timestamp: '08:10' },
+      { sender: 'agent', text: 'Grazie. Analisi in corso.', timestamp: '08:30' },
+      { sender: 'agent', text: 'Tutto OK. Ecco il contratto da firmare.', timestamp: '09:00' },
       { sender: 'candidate', text: 'Ho firmato tutto dal link.', timestamp: '09:55' },
       { sender: 'agent', text: 'Perfetto Yana! Contratto ricevuto. Ora dobbiamo fissare la visita medica.', timestamp: '10:00' }
     ],
@@ -267,6 +301,8 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '12:00', message: 'Visita medica fissata per il 25/10 presso sede Bitonto' }],
     whatsappHistory: [
+      { sender: 'agent', text: 'Ciao Pietro, documenti validati.', timestamp: '10:00' },
+      { sender: 'agent', text: 'Contratto firmato correttamente.', timestamp: '11:00' },
       { sender: 'agent', text: 'La tua visita medica è confermata per domani alle 09:00.', timestamp: '12:00' }
     ],
     documents: [
@@ -294,6 +330,8 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '17:00', message: 'Checklist pre-inizio completata: DPI consegnati e corso sicurezza OK' }],
     whatsappHistory: [
+      { sender: 'agent', text: 'Ciao Maria, tutto pronto per l\'inizio.', timestamp: '16:00' },
+      { sender: 'candidate', text: 'Grazie, a lunedì!', timestamp: '16:10' },
       { sender: 'agent', text: 'Tutto pronto Maria! Ti aspettiamo lunedì alle 08:30 in laboratorio.', timestamp: '17:05' }
     ],
     documents: [
@@ -344,6 +382,7 @@ export const INITIAL_CANDIDATES: Candidate[] = [
     needsPriorityReview: false,
     auditLog: [{ timestamp: '14:20', message: 'Certificato medico mancante nel set caricato' }],
     whatsappHistory: [
+      { sender: 'agent', text: 'Ciao Olek. Carica i documenti.', timestamp: '14:00' },
       { sender: 'candidate', text: 'Ho caricato il permesso, manca altro?', timestamp: '14:15' },
       { sender: 'agent', text: 'Sì, Olek. Manca il certificato medico per procedere.', timestamp: '14:20' }
     ],

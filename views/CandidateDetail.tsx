@@ -361,7 +361,7 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, cam
                   onClick={handleGenerateReport}
                   className="w-full h-11 bg-white text-emerald-950 border border-emerald-950 rounded-xl text-[9px] font-bold transition-all flex items-center justify-between px-5 uppercase tracking-widest hover:bg-emerald-50 active:scale-[0.98] group"
                 >
-                  <span>Genera Dossier PDF</span>
+                  <span>Genera report per consulente del lavoro</span>
                   <FileText className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </button>
               </div>
